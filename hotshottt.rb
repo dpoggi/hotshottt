@@ -5,7 +5,11 @@ require 'models'
 class Hotshottt < Sinatra::Base
   
   get '/' do
-    "Hotshottt!"
+    haml :index
+  end
+  
+  get '/leaderboard' do
+    haml :leaderboard
   end
 
 end

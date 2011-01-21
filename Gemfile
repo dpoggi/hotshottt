@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
-gem 'activerecord'
+gem 'datamapper'
 gem 'httparty'
 gem 'swish'
 gem 'haml'
