@@ -1,7 +1,7 @@
 # Models
 require 'models'
 
-# App Controller
+# Controller/Routes
 class Hotshottt < Sinatra::Base
   
   get '/' do
