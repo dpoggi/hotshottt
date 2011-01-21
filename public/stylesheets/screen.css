@@ -1,0 +1,128 @@
+body {
+	background-color: #434950;
+}
+
+div.container {
+	width: 1000px;
+	margin: 0 auto 20px auto;
+	text-align: center;
+}
+
+p#welcome {
+	margin-top: 10px;
+	text-transform: uppercase;
+	color: #717c87;
+	font: bold 18px Helvetica, arial, sans-serif;
+	text-shadow: 1px 1px 2px #24272b;
+
+}
+
+h1 a {
+	color: #fff;
+	font: bold 100px Helvetica, arial, sans-serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	text-shadow: 3px 3px 0px #434950,
+								5px 5px 0px #ea4c89,
+								7px 7px 3px #24272b;
+}
+
+h1 a:hover {
+	border-bottom: solid 3px #ea4c89;
+}
+
+a {
+	color: #717c87;
+	font: 12px Helvetica, arial, sans-serif;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	text-shadow: 1px 1px 2px #24272b;
+	text-decoration: none;
+	}
+
+a:active {
+	position: relative;
+	top: 1px;
+}
+
+h2 {
+	text-transform: uppercase;
+	color: #717c87;
+	font: bold 18px Helvetica, arial, sans-serif;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	text-shadow: 1px 1px 2px #24272b;
+}
+
+div#match {
+	width: 520px;
+	height: 30px;
+	border-top: 2px groove #717c87;
+	border-left: 2px groove #717c87;
+	border-right: 2px groove #717c87;
+	border-bottom: none;
+	margin: 0 auto 10px auto;
+}
+
+h3, h4 {
+	color: #ea4c89;
+	font: bold 17px Helvetica;
+	text-shadow: 1px 1px 2px #24272b;	
+}
+
+h4 {
+  font-size: 14px;
+}
+
+table {
+	margin: 0 auto 0 auto;
+	width: 1000px;
+}
+
+td.shot {
+	width: 470px;
+	max-height: 400px;
+	background-color: #34383e;
+	-webkit-box-shadow: inset 0px 0px 10px #24272b,
+											inset 0px -2px 4px #4b5159;
+	-webkit-border-radius: 20px;
+	padding-top: 35px;
+	padding-right: 0px;
+	padding-bottom: 35px;
+	padding-left: 0px;
+}
+
+td.vs {
+	color: #ea4c89;
+	font: bold 18px Helvetica, arial, sans-serif;
+	width: 50px;
+	text-shadow: 1px 1px 2px #24272b;
+	height: 40px;
+}
+
+td.on_dribbble a {
+	color: #717c87;
+	font: 12px Helvetica, arial, sans-serif;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	text-shadow: 1px 1px 2px #24272b;
+	text-decoration: none;
+}
+
+div.leader_shot {
+	clear: both;
+	max-height: 400px;
+	width: 400px;
+	background-color: #34383e;
+	-webkit-box-shadow: inset 0px 0px 10px #24272b,
+											inset 0px -2px 4px #4b5159;
+	-webkit-border-radius: 20px;
+	padding: 35px;
+	margin: 10px auto 50px auto;
+	text-align: center;
+}
+
+div.leader_title h3 {
+	display: inline;
+	vertical-align: top;
+}

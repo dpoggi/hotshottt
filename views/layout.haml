@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/stylesheets/reset.css"}
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/stylesheets/screen.css"}
+    
+    %title Hotshottt
+  %body
+    .container
+      %p{:id => "welcome"} welcome to
+      %h1
+        %a{:href => "/"} Hotshottt
+      = yield
