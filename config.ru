@@ -9,12 +9,15 @@ require 'dm-validations'
 require 'swish'
 require 'haml'
 
-# DataMapper configuration
-DataMapper.setup(:default,
-                 ENV['DATABASE_URL'] || "sqlite3://#{File.expand_path(File.dirname(__FILE__))}/development.sqlite3")
+# Models
+require 'models'
 
-# Haml configuration
-set :haml, {:format => :html5}
+# Configuration
+configure do
+  DataMapper::Logger.new(STDOUT, :debug)
+  DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
+  DataMapper.auto_upgrade!
+end
 
 require 'hotshottt'
 run Hotshottt
