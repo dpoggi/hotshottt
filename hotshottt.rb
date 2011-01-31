@@ -27,17 +27,21 @@ class Hotshottt < Sinatra::Base
   
   get '/vote/:id' do
     @shot = Shot.get(params[:id])
-    @shot.votes += 1
     
-    if @shot.valid?
+    if @shot and @shot.valid?
+      @shot.votes += 1
       @shot.save
       redirect '/'
     else
-      @shot.errors.each do |error|
-        puts error
+      if @shot
+        @shot.errors.each {|error| puts error}
       end
-      "Error voting for shot: #{@shot.title}."
+      "Error voting for shot: #{params[:id]}."
     end
+  end
+
+  not_found do
+    redirect '/'
   end
 
 end
