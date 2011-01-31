@@ -29,9 +29,13 @@ class Hotshottt < Sinatra::Base
     @shot = Shot.get(params[:id])
     
     if @shot and @shot.valid?
-      @shot.votes += 1
-      @shot.save
-      redirect '/'
+      vote = Vote.all(:ip_address => request.ip, :shot_id => params[:id])
+      if vote.empty?
+        Vote.create(:ip_address => request.ip, :shot_id => params[:id])
+        @shot.votes += 1
+        @shot.save
+      end
+    redirect '/'
     else
       if @shot
         @shot.errors.each {|error| puts error}

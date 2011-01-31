@@ -10,4 +10,12 @@ class Shot
   property :votes, Integer
 end
 
+class Vote
+  include DataMapper::Resource
+  
+  property :id, Serial
+  property :ip_address, String
+  property :shot_id, Integer
+end
+
 DataMapper.finalize
