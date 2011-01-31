@@ -8,7 +8,6 @@ namespace :db do
   require 'models'
 
   # DataMapper configuration
-  DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
   DataMapper.auto_migrate!
 
