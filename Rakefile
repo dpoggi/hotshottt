@@ -16,10 +16,10 @@ namespace :db do
   end
 
   task :seed do
-    start = STDIN.gets.to_i
-    finish = STDIN.gets.to_i
-    if start and finish
-      print 'Creating some sample shots'
+    start = ENV['START'].to_i
+    finish = ENV['FINISH'].to_i
+    if start > 0 and finish > 0
+      print "Feeding in Dribbble shots from IDs #{start} to #{finish}"
       (start..finish).each do |i|
         shot = Dribbble::Shot.find(i)
         if !shot.title.nil? and !Shot.get(:dribbble_id => i)
