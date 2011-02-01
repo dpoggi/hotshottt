@@ -22,7 +22,7 @@ namespace :db do
       print "Feeding in Dribbble shots from IDs #{start} to #{finish}"
       (start..finish).each do |i|
         shot = Dribbble::Shot.find(i)
-        if !shot.title.nil? and !Shot.get(:dribbble_id => i)
+        if not (shot.title.nil? or Shot.get(:dribbble_id => i))
           Shot.create(:dribbble_id => i, :title => shot.title, :author_name => shot.player.name, :image_url => shot.image_url, :creation_url => shot.url, :votes => 0)
         end
 
