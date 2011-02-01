@@ -2,8 +2,9 @@ source 'http://rubygems.org'
 
 gem 'sinatra'
 gem 'datamapper'
-gem 'dm-sqlite-adapter', :group => :development
-gem 'dm-postgres-adapter', :group => :production
+gem 'dm-sqlite-adapter'
+gem 'dm-postgres-adapter'
 gem 'httparty'
 gem 'swish'
 gem 'haml'
+gem 'rack-google-analytics'
