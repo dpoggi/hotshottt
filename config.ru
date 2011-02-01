@@ -13,7 +13,7 @@ require 'swish'
 require 'haml'
 
 # Models
-require 'models'
+require './models.rb'
 
 # Configuration
 configure do
