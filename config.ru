@@ -11,6 +11,7 @@ require 'dm-migrations'
 require 'dm-validations'
 require 'swish'
 require 'haml'
+require 'rack/google-analytics'
 
 # Models
 require './models.rb'
@@ -20,6 +21,8 @@ configure do
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
   DataMapper.auto_upgrade!
+
+  use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1'
 end
 
 require './hotshottt.rb'
