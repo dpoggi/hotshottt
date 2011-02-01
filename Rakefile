@@ -16,16 +16,20 @@ namespace :db do
   end
 
   task :seed do
-    print 'Creating some sample shots'
-    (100000..101000).each do |i|
-      shot = Dribbble::Shot.find(i)
-      if !shot.title.nil? and !Shot.get(:dribbble_id => i)
-        Shot.create(:dribbble_id => i, :title => shot.title, :author_name => shot.player.name, :image_url => shot.image_url, :creation_url => shot.url, :votes => 0)
+    start = STDIN.gets.to_i
+    finish = STDIN.gets.to_i
+    if start and finish
+      print 'Creating some sample shots'
+      (start..finish).each do |i|
+        shot = Dribbble::Shot.find(i)
+        if !shot.title.nil? and !Shot.get(:dribbble_id => i)
+          Shot.create(:dribbble_id => i, :title => shot.title, :author_name => shot.player.name, :image_url => shot.image_url, :creation_url => shot.url, :votes => 0)
+        end
+
+        print '.'; $stdout.flush
       end
 
-      print '.'; $stdout.flush
+      puts ' done.'
     end
-
-    puts ' done.'
   end
 end
