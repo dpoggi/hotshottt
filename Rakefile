@@ -6,7 +6,6 @@ namespace :db do
   require 'swish'
 
   require 'models'
-
   # DataMapper configuration
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
   DataMapper.auto_upgrade!
