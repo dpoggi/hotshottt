@@ -9,7 +9,11 @@ namespace :db do
 
   # DataMapper configuration
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
-  DataMapper.auto_migrate!
+  DataMapper.auto_upgrade!
+
+  task :migrate do
+    DataMapper.auto_migrate!
+  end
 
   task :seed do
     print 'Creating some sample shots'
