@@ -50,15 +50,27 @@ GEM
       uuidtools (~> 2.1.1)
     dm-validations (1.0.2)
       dm-core (~> 1.0.2)
+    do_jdbc (0.10.3-java)
+      data_objects (= 0.10.3)
     do_postgres (0.10.3)
       data_objects (= 0.10.3)
+    do_postgres (0.10.3-java)
+      data_objects (= 0.10.3)
+      do_jdbc (= 0.10.3)
+      jdbc-postgres (>= 8.2)
     do_sqlite3 (0.10.3)
       data_objects (= 0.10.3)
+    do_sqlite3 (0.10.3-java)
+      data_objects (= 0.10.3)
+      do_jdbc (= 0.10.3)
+      jdbc-sqlite3 (>= 3.5.8)
     extlib (0.9.15)
     fastercsv (1.5.4)
     haml (3.0.25)
     httparty (0.7.3)
       crack (= 0.1.8)
+    jdbc-postgres (9.0.801)
+    jdbc-sqlite3 (3.6.14.2.056-java)
     json_pure (1.5.1)
     rack (1.2.1)
     sinatra (1.1.2)
@@ -70,6 +82,7 @@ GEM
     uuidtools (2.1.1)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
