@@ -22,5 +22,5 @@ configure do
   DataMapper.auto_upgrade!
 end
 
-require 'hotshottt'
+require './hotshottt.rb'
 run Hotshottt
