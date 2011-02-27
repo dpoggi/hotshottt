@@ -21,7 +21,7 @@ namespace :db do
       print "Feeding in Dribbble shots from IDs #{start} to #{finish}"
       (start..finish).each do |i|
         shot = Dribbble::Shot.find(i)
-        if !shot.title.nil? and Shot.all(:dribbble_id => i).empty?
+        if !shot.created_at.nil? and Shot.all(:dribbble_id => i).empty?
           Shot.create(:dribbble_id => i, :title => shot.title, :author_name => shot.player.name, :image_url => shot.image_url, :creation_url => shot.url, :votes => 0)
         end
 
