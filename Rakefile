@@ -15,19 +15,24 @@ namespace :db do
   end
 
   task :seed do
-    start = ENV['START'].to_i
-    finish = ENV['FINISH'].to_i
-    if start > 0 and finish > 0
-      print "Feeding in Dribbble shots from IDs #{start} to #{finish}"
-      (start..finish).each do |i|
-        shot = Dribbble::Shot.find(i)
-        if !shot.created_at.nil? and Shot.all(:dribbble_id => i).empty?
-          Shot.create(:dribbble_id => i, :title => shot.title, :author_name => shot.player.name, :image_url => shot.image_url, :creation_url => shot.url, :votes => 0)
+    num_pages = ENV['PAGES'].to_i
+    if num_pages > 0
+      print "Feeding in the (#{num_pages} * 30) most popular Dribbble shots"
+      (1..num_pages + 1).each do |page|
+        shots = Dribbble::Shot.popular(:page => page, :per_page => 30)
+        shots.each do |shot|
+          d_id = shot.url[26..(shot.url =~ %r[-]) - 1].to_i
+          if Shot.all(:dribbble_id => d_id).empty?
+            Shot.create(:dribbble_id => d_id,
+                        :title => shot.title,
+                        :author_name => shot.player.name,
+                        :image_url => shot.image_url,
+                        :creation_url => shot.url,
+                        :votes => 0)
+            print '.'; $stdout.flush
+          end
         end
-
-        print '.'; $stdout.flush
       end
-
       puts ' done.'
     end
   end
