@@ -18,7 +18,7 @@ namespace :db do
     num_pages = ENV['PAGES'].to_i
     if num_pages > 0
       print "Feeding in the (#{num_pages} * 30) most popular Dribbble shots"
-      (1..num_pages + 1).each do |page|
+      (1..num_pages).each do |page|
         shots = Dribbble::Shot.popular(:page => page, :per_page => 30)
         shots.each do |shot|
           d_id = shot.url[26..(shot.url =~ %r[-]) - 1].to_i
