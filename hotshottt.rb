@@ -29,7 +29,7 @@ class Hotshottt < Sinatra::Base
     else
       @shot2_percent = 100.0 * (@shot2.upvotes.to_f / (@shot2.upvotes.to_f + @shot2.downvotes.to_f))
     end
-    @shot2_percent = @shot2.percent.round(2)
+    @shot2_percent = @shot2_percent.round(2)
     
     haml :index
   end
