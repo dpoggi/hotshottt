@@ -4,10 +4,10 @@
 %table
   %tr
     %td
-      %h3= @shot1.title
+      %h3 #{@shot1.title} (#{@shot1.upvotes} wins/#{@shot1.downvotes} losses)
     %td{:class => "vs"} or
     %td
-      %h3= @shot2.title
+      %h3 #{@shot2.title} (#{@shot2.upvotes} wins/#{@shot2.downvotes} losses)
   %tr
     %td{:class => "shot"}
       %a{:href => "/vote/#{@shot1.id}/#{@shot2.id}"}

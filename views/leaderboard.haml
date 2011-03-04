@@ -4,7 +4,7 @@
   %div{:class => "leader_title"}
     %a{:href => @shots[i].creation_url}
       %h3 #{i + 1}. #{@shots[i].title} by #{@shots[i].author_name}
-      %h4 (upvotes: #{@shots[i].upvotes})
+      %h4 (#{@shots[i].upvotes} wins, #{@shots[i].downvotes} losses)
   %div{:class => "leader_shot"}
     %a{:href => @shots[i].creation_url}
       %img{:class => "leader_shot", :src => "#{@shots[i].image_url}"}
