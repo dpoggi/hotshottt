@@ -46,11 +46,21 @@ a:active {
 }
 
 h2 {
-	color: #717c87;
+  text-transform: uppercase;
+  color: #717c87;
 	font: bold 18px Helvetica, arial, sans-serif;
-	margin-bottom: 20px;
+	margin-bottom: 0;
 	margin-top: 20px;
 	text-shadow: 1px 1px 2px #24272b;
+}
+
+/* Sorry Nathan, quick hack */
+h5 {
+  color: #717c87;
+  font: bold 18px Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+  margin-top: 0;
+  text-shadow: 1px 1px 2px #24272b;
 }
 
 div#match {
