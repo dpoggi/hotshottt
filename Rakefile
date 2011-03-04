@@ -28,7 +28,8 @@ namespace :db do
                         :author_name => shot.player.name,
                         :image_url => shot.image_url,
                         :creation_url => shot.url,
-                        :votes => 0)
+                        :upvotes => 0,
+                        :downvotes => 0)
             print '.'; $stdout.flush
           end
         end

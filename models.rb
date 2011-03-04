@@ -16,8 +16,7 @@ class IP
   
   property :id, Serial
   property :ip_address, String
-  property :upvote_list, Text
-  property :downvote_list, Text
+  property :vote_combo_list, Text
 end
 
 DataMapper.finalize

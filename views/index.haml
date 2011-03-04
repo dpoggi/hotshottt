@@ -10,11 +10,11 @@
       %h3= @shot2.title
   %tr
     %td{:class => "shot"}
-      %a{:href => "/vote/#{@shot1.id}"}
+      %a{:href => "/vote/#{@shot1.id}/#{@shot2.id}"}
         %img{:src => "#{@shot1.image_url}"}
     %td
     %td{:class => "shot"}
-      %a{:href => "/vote/#{@shot2.id}"}
+      %a{:href => "/vote/#{@shot2.id}/#{@shot1.id}"}
         %img{:src => "#{@shot2.image_url}"}
   %tr
     %td{:class => "on_dribbble"}

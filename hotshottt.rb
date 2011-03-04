@@ -21,33 +21,41 @@ class Hotshottt < Sinatra::Base
   end
   
   get '/leaderboard' do
-    @shots = Shot.all(:order => [ :votes.desc ], :limit => 10)
+    @shots = Shot.all(:order => [ :upvotes.desc ], :limit => 10)
     haml :leaderboard
   end
   
-  get '/vote/:id' do
-    @shot = Shot.get(params[:id])
+  get '/vote/:up/:down' do
+    @upshot = Shot.get(params[:up])
+    @downshot = Shot.get(params[:down])
     
-    if @shot and @shot.valid?
-      offending_IPs = IP.all(:ip_address => request.ip, :shot_id_list.like => "% #{params[:id]} %")
-      if offending_IPs.empty?
-        existing_IP = IP.first(:ip_address => request.ip)
-        if existing_IP and existing_IP.valid?
-          existing_IP.shot_id_list += " #{params[:id]} "
-          existing_IP.save
+    if @upshot and @downshot and @upshot.valid? and @downshot.valid?
+      repeat_voters = IP.all(:ip_address => request.ip,
+                             :vote_combo_list.like => "% #{params[:up]}/#{params[:down]} %")
+      if repeat_voters.empty?
+        repeat_voter = IP.first(:ip_address => request.ip)
+        if repeat_voter and repeat_voter.valid?
+          repeat_voter.vote_combo_list += " #{params[:up]}/#{params[:down]} "
+          repeat_voter.save
         else
-          IP.create(:ip_address => request.ip, :shot_id_list => " #{params[:id]} ")
+          IP.create(:ip_address => request.ip,
+                    :vote_combo_list => " #{params[:up]}/#{params[:down]} ")
         end
 
-        @shot.votes += 1
-        @shot.save
+        @upshot.upvotes += 1
+        @upshot.save
+        @downshot.downvotes += 1
+        @downshot.save
       end
       redirect '/'
     else
-      if @shot
-        @shot.errors.each {|error| puts error}
+      if @upshot
+        @upshot.errors.each {|error| puts error}
       end
-      "Error voting for shot: #{params[:id]}."
+      if @downshot
+        @downshot.errors.each {|error| puts error}
+      end
+      "Error voting for shot: #{params[:up]}."
     end
   end
 
