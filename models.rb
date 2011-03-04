@@ -8,6 +8,7 @@ class Shot
   property :image_url, Text
   property :creation_url, Text
   property :votes, Integer
+  property :downvotes, Integer
 end
 
 class IP
