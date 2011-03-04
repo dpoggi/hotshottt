@@ -17,10 +17,10 @@ namespace :db do
   task :seed do
     first_page = ENV['FIRSTPAGE'].to_i
     last_page = ENV['LASTPAGE'].to_i
-    num_pages = last_page - first_page + 1
-    num_shots = num_pages * 30
+    first_shot = (first_page - 1) * 30 + 1
+    last_shot = (last_page) * 30
     if first_page > 0 and last_page > 0
-      print "Feeding in the #{num_shots} most popular Dribbble shots"
+      print "Feeding in popular Dribbble shots from #s #{first_shot} to #{last_shot}"
       (first_page..last_page).each do |page|
         shots = Dribbble::Shot.popular(:page => page, :per_page => 30)
         shots.each do |shot|
