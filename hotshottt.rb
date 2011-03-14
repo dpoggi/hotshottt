@@ -1,12 +1,16 @@
 # Controller/Routes
 class Hotshottt < Sinatra::Base
   
-  # Sinatra configuration
-  enable :static
-  set :public, 'public'
-  
-  # Haml configuration
-  set :haml, {:format => :html5}
+  # Configure Sinatra
+  configure do
+    disable :run
+    enable :static
+    set :public, File.join(File.dirname(__FILE__), 'public')
+    set :views, File.join(File.dirname(__FILE__), 'views')
+
+    # Configure Haml
+    set :haml, {:format => :html5}
+  end
   
   get '/' do
     num1 = rand(Shot.count - 2) + 1

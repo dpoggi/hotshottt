@@ -1,24 +1,20 @@
+# Rackup file
+
 # Shotgun command-line switches
 #\ -s thin -o 0.0.0.0
 
-require 'rubygems'
 require 'bundler'
-Bundler.setup
-
-require 'sinatra'
-require 'dm-core'
-require 'dm-migrations'
-require 'dm-validations'
-require 'swish'
-require 'haml'
-require 'rack/google-analytics'
+Bundler.require(:default, ENV['DATABASE_URL'] ? :production : :development)
 
 # Models
 require './models.rb'
 
-# Configuration
+# Rack configuration
 configure do
-  DataMapper::Logger.new(STDOUT, :debug)
+  if not ENV['DATABASE_URL']
+    DataMapper::Logger.new(STDOUT, :debug)
+  end
+
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
   DataMapper.auto_upgrade!
 
