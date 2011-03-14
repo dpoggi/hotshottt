@@ -3,7 +3,7 @@
 # Shotgun command-line switches
 #\ -s thin -o 0.0.0.0
 
-require 'bundler'
+require 'bundler/setup'
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 # Models

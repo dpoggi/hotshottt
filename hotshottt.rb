@@ -12,37 +12,36 @@ class Hotshottt < Sinatra::Base
     set :haml, {:format => :html5}
   end
   
+  # Neato helpers
+  helpers do
+    # Get [num] unique random numbers with min 1 and max (inclusive) [ceiling]
+    def unique_randoms(num, ceiling)
+      begin
+        arr = Array.new(num) { rand(ceiling - 1) + 1 }
+      end until arr.count == arr.uniq.count
+      arr
+    end
+
+    # Calculate the win percentage = wins / (wins + losses)
+    def percent_success(upvotes, downvotes)
+      upvotes + downvotes == 0 ? 0.0 : (100.0 * (upvotes.to_f / (upvotes.to_f + downvotes.to_f))).round(2)
+    end
+  end
+ 
+  # Main "versus" page. View needs two shots, and their calculated win percentages
   get '/' do
-    num1 = rand(Shot.count - 2) + 1
-    num2 = rand(Shot.count - 2) + 1
-    while num2 == num1
-      num2 = rand(Shot.count - 2) + 1
-    end
-    
-    @shot1 = Shot.get(num1)
-    @shot2 = Shot.get(num2)
-    if @shot1.upvotes + @shot1.downvotes == 0
-      @shot1_percent = 0.0
-    else
-      @shot1_percent = 100.0 * (@shot1.upvotes.to_f / (@shot1.upvotes.to_f + @shot1.downvotes.to_f))
-    end
-    @shot1_percent = @shot1_percent.round(2)
-    
-    if @shot2.upvotes + @shot2.downvotes == 0
-      @shot2_percent = 0.0
-    else
-      @shot2_percent = 100.0 * (@shot2.upvotes.to_f / (@shot2.upvotes.to_f + @shot2.downvotes.to_f))
-    end
-    @shot2_percent = @shot2_percent.round(2)
-    
+    @shot1, @shot2 = unique_randoms(2, Shot.count).map {|id| Shot.get(id)}
+    @shot1_percent, @shot2_percent = [@shot1, @shot2].map {|shot| percent_success(shot.upvotes, shot.downvotes)}
     haml :index
   end
-  
+ 
+  # Leaderboard. View needs a properly ordered list of the ten winning-est shots
   get '/leaderboard' do
     @shots = Shot.all(:order => [ :upvotes.desc ], :limit => 10)
     haml :leaderboard
   end
-  
+ 
+  # Does the voting. TODO: Make this NOT a dirty hack
   get '/vote/:up/:down' do
     @upshot = Shot.get(params[:up])
     @downshot = Shot.get(params[:down])
