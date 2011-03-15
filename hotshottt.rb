@@ -26,6 +26,34 @@ class Hotshottt < Sinatra::Base
     def percent_success(upvotes, downvotes)
       upvotes + downvotes == 0 ? 0.0 : (100.0 * (upvotes.to_f / (upvotes.to_f + downvotes.to_f))).round(2)
     end
+
+    # Function to get around DataMapper's shittiness when it comes to errors.
+    # Validates all the objects given, and either yields to the block or
+    # prints the errors. What a bitchmonkey.
+    def if_valid_rows(*rows)
+      rows_exist = !rows.include?(nil)
+      rows_valid = rows.inject do |result, row|
+        if result and row
+          result = row.valid?
+        else
+          result = false
+        end
+      end
+
+      if rows_exist and rows_valid
+        yield
+        true
+      else
+        rows.each {|row| row ? row.errors.each {|error| puts error} : nil}
+        false
+      end
+    end
+
+    # Encodes an event for a winner and a loser. Jesus this is a hack. Hack hack hack.
+    def encode_event(winner, loser)
+      " #{winner.id}/#{loser.id} "
+    end
+
   end
  
   # Main "versus" page. View needs two shots, and their calculated win percentages
@@ -41,38 +69,29 @@ class Hotshottt < Sinatra::Base
     haml :leaderboard
   end
  
-  # Does the voting. TODO: Make this NOT a dirty hack
-  get '/vote/:up/:down' do
-    @upshot = Shot.get(params[:up])
-    @downshot = Shot.get(params[:down])
-    
-    if @upshot and @downshot and @upshot.valid? and @downshot.valid?
+  # Does the voting.
+  get '/vote/:winner/:loser' do
+    winner, loser = Shot.get(params[:winner].to_i), Shot.get(params[:loser].to_i)
+
+    if_valid_rows winner, loser do
       repeat_voters = IP.all(:ip_address => request.ip,
-                             :vote_combo_list.like => "% #{params[:up]}/#{params[:down]} %")
+                             :vote_combo_list.like => "%#{encode_event(winner, loser)}%")
       if repeat_voters.empty?
         repeat_voter = IP.first(:ip_address => request.ip)
-        if repeat_voter and repeat_voter.valid?
-          repeat_voter.vote_combo_list += " #{params[:up]}/#{params[:down]} "
+        is_repeat_voter = if_valid_rows repeat_voter do
+          repeat_voter.vote_combo_list += encode_event(winner, loser)
           repeat_voter.save
-        else
+        end
+        if not is_repeat_voter
           IP.create(:ip_address => request.ip,
-                    :vote_combo_list => " #{params[:up]}/#{params[:down]} ")
+                    :vote_combo_list => encode_event(winner, loser))
         end
 
-        @upshot.upvotes += 1
-        @upshot.save
-        @downshot.downvotes += 1
-        @downshot.save
+        winner.upvotes += 1
+        loser.downvotes += 1
+        [winner, loser].each {|shot| shot.save}
       end
       redirect '/'
-    else
-      if @upshot
-        @upshot.errors.each {|error| puts error}
-      end
-      if @downshot
-        @downshot.errors.each {|error| puts error}
-      end
-      "Error voting for shot: #{params[:up]}."
     end
   end
 
