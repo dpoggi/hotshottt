@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
-gem 'datamapper'
+gem 'dm-core'
+gem 'dm-migrations'
 gem 'httparty'
 gem 'swish'
 gem 'haml'
