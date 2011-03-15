@@ -1,14 +1,9 @@
 namespace :db do
-  require 'rubygems'
-  require 'dm-core'
-  require 'dm-migrations'
-  require 'dm-sqlite-adapter'
-  require 'swish'
+  require './environment.rb'
 
-  require './models.rb'
-  # DataMapper configuration
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
-  DataMapper.auto_upgrade!
+  task :upgrade do
+    DataMapper.auto_upgrade!
+  end
 
   task :migrate do
     DataMapper.auto_migrate!
