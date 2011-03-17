@@ -5,5 +5,10 @@
 
 require './environment.rb'
 
+# Hack to make Google Analytics work :(
+configure do
+  use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1'
+end
+
 require './hotshottt.rb'
 run Hotshottt

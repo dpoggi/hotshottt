@@ -9,8 +9,5 @@ configure do
   if ENV['RACK_ENV'] == 'development'
     DataMapper::Logger.new(STDOUT, :debug)
   end
-
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/development.sqlite3")
-
-  use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1'
 end
