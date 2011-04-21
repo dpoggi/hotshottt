@@ -1,13 +1,11 @@
-# Rackup file
-
-# Shotgun command-line switches
-#\ -s thin -o 0.0.0.0
-
+# Load environment
 require './environment.rb'
 
-# Hack to make Google Analytics work :(
+# Rack configuration for Google Analytics
 configure do
-  use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1'
+  if ENV['RACK_ENV'].eql? 'production'
+    use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1'
+  end
 end
 
 require './hotshottt.rb'

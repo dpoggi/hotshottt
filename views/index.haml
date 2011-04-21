@@ -1,25 +1,25 @@
 %h2 It's like FaceMash for Dribbble shots!
 %h3 
-%a{:href => "/leaderboard"} (see the leaderboard)
+%a{:href => '/leaderboard'} (see the leaderboard)
 #match
 %table
   %tr
     %td
       %h3 #{@shot1.title} (#{@shot1.upvotes}W / #{@shot1.downvotes}L / #{@shot1_percent}%)
-    %td{:class => "vs"} or
+    %td.vs or
     %td
       %h3 #{@shot2.title} (#{@shot2.upvotes}W / #{@shot2.downvotes}L / #{@shot2_percent}%)
   %tr 
-    %td{:class => "shot"}
+    %td.shot
       %a{:href => "/vote/#{@shot1.id}/#{@shot2.id}"}
         %img{:src => "#{@shot1.image_url}"}
     %td
-    %td{:class => "shot"}
+    %td.shot
       %a{:href => "/vote/#{@shot2.id}/#{@shot1.id}"}
         %img{:src => "#{@shot2.image_url}"}
   %tr
-    %td{:class => "on_dribbble"}
+    %td.on_dribbble
       %a{:href => "#{@shot1.creation_url}"} See #{@shot1.author_name}'s creation on Dribbble
     %td
-    %td{:class => "on_dribbble"}
+    %td.on_dribbble
       %a{:href => "#{@shot2.creation_url}"} See #{@shot2.author_name}'s creation on Dribbble

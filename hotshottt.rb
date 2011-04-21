@@ -95,6 +95,16 @@ class Hotshottt < Sinatra::Base
     end
   end
 
+  # Get an SCSS stylesheet
+  get '/stylesheets/:sheet.css' do
+    scss_options = {:syntax => :scss}
+    if ENV['RACK_ENV'].eql? 'production'
+      scss_options.merge!({:style => :compressed})
+    end
+
+    scss :"#{params[:sheet]}", scss_options
+  end
+  
   not_found do
     redirect '/'
   end
