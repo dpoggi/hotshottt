@@ -1,5 +1,5 @@
 namespace :db do
-  require './environment.rb'
+  require File.join(File.dirname(__FILE__), 'config', 'environment.rb')
 
   task :upgrade do
     DataMapper.auto_upgrade!

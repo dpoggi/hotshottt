@@ -4,8 +4,6 @@ class Hotshottt < Sinatra::Base
   # Configure Sinatra
   configure do
     disable :run
-    enable :static
-    set :public, File.join(File.dirname(__FILE__), 'public')
     set :views, File.join(File.dirname(__FILE__), 'views')
 
     # Configure Haml

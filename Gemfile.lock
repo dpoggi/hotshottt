@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.2.5)
     crack (0.1.8)
+    daemons (1.1.2)
     data_objects (0.10.3)
       addressable (~> 2.1)
     dm-core (1.1.0)
@@ -12,18 +13,19 @@ GEM
       dm-core (~> 1.1.0)
     dm-migrations (1.1.0)
       dm-core (~> 1.1.0)
-    dm-postgres-adapter (1.1.0)
+    dm-mysql-adapter (1.1.0)
       dm-do-adapter (~> 1.1.0)
-      do_postgres (~> 0.10.2)
+      do_mysql (~> 0.10.2)
     dm-sqlite-adapter (1.1.0)
       dm-do-adapter (~> 1.1.0)
       do_sqlite3 (~> 0.10.2)
     dm-validations (1.1.0)
       dm-core (~> 1.1.0)
-    do_postgres (0.10.3)
+    do_mysql (0.10.3)
       data_objects (= 0.10.3)
     do_sqlite3 (0.10.3)
       data_objects (= 0.10.3)
+    eventmachine (0.12.10)
     haml (3.0.25)
     httparty (0.7.7)
       crack (= 0.1.8)
@@ -33,6 +35,10 @@ GEM
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
     swish (0.8.0)
+    thin (1.2.11)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     tilt (1.2.2)
 
 PLATFORMS
@@ -41,7 +47,7 @@ PLATFORMS
 DEPENDENCIES
   dm-core
   dm-migrations
-  dm-postgres-adapter
+  dm-mysql-adapter
   dm-sqlite-adapter
   dm-validations
   haml
@@ -49,3 +55,4 @@ DEPENDENCIES
   rack-google-analytics
   sinatra
   swish
+  thin
