@@ -6,10 +6,10 @@ require 'bundler/setup'
 Bundler.require :default, :"#{ENV['RACK_ENV']}"
 
 # Models
-require File.join(File.dirname(__FILE__), 'schema.rb')
+require './db/schema.rb'
 
 # Rack configuration
 configure do
-  dm_config = YAML.load(File.new(File.join(File.dirname(__FILE__), 'database.yml')))
+  dm_config = YAML.load(File.new('./config/database.yml'))
   DataMapper.setup :default, dm_config[ENV['RACK_ENV']] 
 end
