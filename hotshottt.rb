@@ -16,16 +16,20 @@ class Hotshottt < Sinatra::Base
     def unique_randoms(num, ceiling)
       begin
         arr = Array.new(num) { rand(ceiling - 1) + 1 }
-      end until arr.count == arr.uniq.count
+      end until arr.count.eql? arr.uniq.count
       arr
     end
 
     # Calculate the win percentage = wins / (wins + losses)
     def percent_success(upvotes, downvotes)
-      upvotes + downvotes == 0 ? 0.0 : (100.0 * (upvotes.to_f / (upvotes.to_f + downvotes.to_f))).round(2)
+      if (upvotes + downvotes).eql? 0
+        0.0
+      else
+        (100.0 * (upvotes.to_f / (upvotes.to_f + downvotes.to_f))).round(2)
+      end
     end
 
-    # Function to get around DataMapper's shittiness when it comes to errors.
+    # Sandwich to get around DataMapper's shittiness when it comes to errors.
     # Validates all the objects given, and either yields to the block or
     # prints the errors. What a bitchmonkey.
     def if_valid_rows(*rows)
@@ -51,7 +55,6 @@ class Hotshottt < Sinatra::Base
     def encode_event(winner, loser)
       " #{winner.id}/#{loser.id} "
     end
-
   end
  
   # Main "versus" page. View needs two shots, and their calculated win percentages

@@ -3,7 +3,9 @@ require './config/environment.rb'
 
 # Rack configuration for Google Analytics
 configure do
-  use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1' if ENV['RACK_ENV'].eql? 'production'
+  if ENV['RACK_ENV'].eql? 'production'
+    use Rack::GoogleAnalytics, :tracker => 'UA-21127535-1'
+  end
 end
 
 require './hotshottt.rb'

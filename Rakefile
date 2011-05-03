@@ -1,5 +1,5 @@
 namespace :db do
-  require File.join(File.dirname(__FILE__), 'config', 'environment.rb')
+  require './config/environment.rb'
 
   task :upgrade do
     DataMapper.auto_upgrade!
@@ -14,6 +14,7 @@ namespace :db do
     last_page = ENV['LASTPAGE'].to_i
     first_shot = (first_page - 1) * 30 + 1
     last_shot = (last_page) * 30
+
     if first_page > 0 and last_page > 0
       print "Feeding in popular Dribbble shots from #s #{first_shot} to #{last_shot}"
       (first_page..last_page).each do |page|
