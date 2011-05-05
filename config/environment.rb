@@ -10,6 +10,6 @@ require './db/schema.rb'
 
 # Rack configuration
 configure do
-  dm_config = YAML.load(File.new('./config/database.yml'))
-  DataMapper.setup :default, dm_config[ENV['RACK_ENV']] 
+  datamapper_config = YAML.load File.new('./config/database.yml')
+  DataMapper.setup :default, datamapper_config[ENV['RACK_ENV']] 
 end
