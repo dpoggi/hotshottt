@@ -14,7 +14,7 @@ group :development do
 end
 
 group :production do
-  gem 'thin'
+  gem 'unicorn'
   gem 'dm-mysql-adapter'
   gem 'rack-google-analytics', :require => 'rack/google-analytics'
 end
