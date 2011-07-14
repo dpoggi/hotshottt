@@ -5,8 +5,6 @@ class Hotshottt < Sinatra::Base
   configure do
     disable :run
     set :views, File.join(File.dirname(__FILE__), 'views')
-
-    # Configure Haml
     set :haml, {:format => :html5}
   end
   
