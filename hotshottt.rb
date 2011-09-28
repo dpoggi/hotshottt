@@ -107,5 +107,4 @@ class Hotshottt < Sinatra::Base
   not_found do
     redirect '/'
   end
-
 end
