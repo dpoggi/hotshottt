@@ -1,8 +1,8 @@
-*.DS_Store
-*.sass-cache/*
-.bundle/*
-log/*
-tmp/*
-db/*.sqlite3
-config/*.yml
-config/unicorn.rb
+*.sass-cache/
+/.bundle
+/log/*.log
+/tmp/**/*
+!/tmp/pids/.gitkeep
+/config/*.yml
+/config/unicorn.rb
+/db/*.sqlite3
