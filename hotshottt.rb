@@ -53,6 +53,14 @@ class Hotshottt < Sinatra::Base
     def encode_event(winner, loser)
       " #{winner.id}/#{loser.id} "
     end
+
+    def ci_lower_bound(pos, n)
+      return 0 if n == 0
+
+      z = 1.96
+      phat = 1.0 * pos / n
+      (phat + z*z/(2*n) - z * Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n)
+    end
   end
  
   # Main "versus" page. View needs two shots, and their calculated win percentages
@@ -64,7 +72,16 @@ class Hotshottt < Sinatra::Base
  
   # Leaderboard. View needs a properly ordered list of the ten winning-est shots
   get '/leaderboard' do
-    @shots = Shot.all(:order => [ :upvotes.desc ], :limit => 10)
+    @shots = Shot.all
+    @shots.sort! do |a, b|
+      a_total = a.upvotes + a.downvotes
+      a_ci = ci_lower_bound(a.upvotes, a_total)
+      b_total = b.upvotes + b.downvotes
+      b_ci = ci_lower_bound(b.upvotes, b_total)
+      b_ci <=> a_ci
+    end
+    @shots = @shots[0..9]
+
     haml :leaderboard
   end
  
