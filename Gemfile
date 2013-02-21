@@ -17,5 +17,4 @@ end
 group :production do
   gem 'unicorn'
   gem 'dm-mysql-adapter'
-  gem 'rack-google-analytics', :require => 'rack/google-analytics'
 end
