@@ -1,15 +1,15 @@
 # Default our Rack environment
-ENV['RACK_ENV'] = 'development' if ENV['RACK_ENV'].nil?
+ENV['RACK_ENV'] ||= 'development'
 
 # Tell Bundler to require all our gems
 require 'bundler/setup'
-Bundler.require :default, :"#{ENV['RACK_ENV']}"
+Bundler.require(:default, :"#{ENV['RACK_ENV']}")
 
 # Models
-require './db/schema.rb'
+require File.expand_path('../../db/schema.rb', __FILE__)
 
 # Rack configuration
 configure do
-  datamapper_config = YAML.load File.new('./config/database.yml')
-  DataMapper.setup :default, datamapper_config[ENV['RACK_ENV']] 
+  dm_config = YAML.load_file(File.expand_path('../database.yml', __FILE__))
+  DataMapper.setup(:default, dm_config[ENV['RACK_ENV']])
 end

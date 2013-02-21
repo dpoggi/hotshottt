@@ -1,5 +1,5 @@
 namespace :db do
-  require './config/environment.rb'
+  require File.expand_path('../config/environment.rb', __FILE__)
 
   task :upgrade do
     DataMapper.auto_upgrade!
@@ -15,7 +15,7 @@ namespace :db do
     first_shot = (first_page - 1) * 30 + 1
     last_shot = (last_page) * 30
 
-    if first_page > 0 and last_page > 0
+    if first_page > 0 && last_page > 0
       print "Feeding in popular Dribbble shots from #s #{first_shot} to #{last_shot}"
       (first_page..last_page).each do |page|
         shots = Dribbble::Shot.popular(:page => page, :per_page => 30)

@@ -4,8 +4,7 @@ class Hotshottt < Sinatra::Base
   # Configure Sinatra
   configure do
     disable :run
-    set :views, File.join(File.dirname(__FILE__), 'views')
-    set :haml, {:format => :html5}
+    set :haml, { format: :html5 }
   end
   
   # Neato helpers
@@ -14,13 +13,14 @@ class Hotshottt < Sinatra::Base
     def unique_randoms(num, ceiling)
       begin
         arr = Array.new(num) { rand(ceiling - 1) + 1 }
-      end until arr.count.eql? arr.uniq.count
+      end until arr.count == arr.uniq.count
+
       arr
     end
 
     # Calculate the win percentage = wins / (wins + losses)
     def percent_success(upvotes, downvotes)
-      if (upvotes + downvotes).eql? 0
+      if (upvotes + downvotes) == 0
         0.0
       else
         (100.0 * (upvotes.to_f / (upvotes.to_f + downvotes.to_f))).round(2)
@@ -33,7 +33,7 @@ class Hotshottt < Sinatra::Base
     def if_valid_rows(*rows)
       rows_exist = !rows.include?(nil)
       rows_valid = rows.inject do |result, row|
-        if result and row
+        if result && row
           result = row.valid?
         else
           result = false
@@ -44,7 +44,7 @@ class Hotshottt < Sinatra::Base
         yield
         true
       else
-        rows.each {|row| row ? row.errors.each {|error| puts error} : nil}
+        rows.each { |row| row ? row.errors.each { |error| puts error } : nil }
         false
       end
     end
@@ -65,8 +65,8 @@ class Hotshottt < Sinatra::Base
  
   # Main "versus" page. View needs two shots, and their calculated win percentages
   get '/' do
-    @shot1, @shot2 = unique_randoms(2, Shot.count).map {|id| Shot.get(id)}
-    @shot1_percent, @shot2_percent = [@shot1, @shot2].map {|shot| percent_success(shot.upvotes, shot.downvotes)}
+    @shot1, @shot2 = unique_randoms(2, Shot.count).map { |id| Shot.get(id) }
+    @shot1_percent, @shot2_percent = [@shot1, @shot2].map { |shot| percent_success(shot.upvotes, shot.downvotes) }
     haml :index
   end
  
@@ -89,16 +89,16 @@ class Hotshottt < Sinatra::Base
   get '/vote/:winner/:loser' do
     winner, loser = Shot.get(params[:winner].to_i), Shot.get(params[:loser].to_i)
 
-    if_valid_rows winner, loser do
+    if_valid_rows(winner, loser) do
       repeat_voters = IP.all(:ip_address => request.ip,
                              :vote_combo_list.like => "%#{encode_event(winner, loser)}%")
       if repeat_voters.empty?
         repeat_voter = IP.first(:ip_address => request.ip)
-        is_repeat_voter = if_valid_rows repeat_voter do
+        is_repeat_voter = if_valid_rows(repeat_voter) do
           repeat_voter.vote_combo_list += encode_event(winner, loser)
           repeat_voter.save
         end
-        if not is_repeat_voter
+        if !is_repeat_voter
           IP.create(:ip_address => request.ip,
                     :vote_combo_list => encode_event(winner, loser))
         end
@@ -113,9 +113,9 @@ class Hotshottt < Sinatra::Base
 
   # Get an SCSS stylesheet
   get '/stylesheets/:sheet.css' do
-    scss_options = {:syntax => :scss}
-    if ENV['RACK_ENV'].eql? 'production'
-      scss_options.merge!({:style => :compressed})
+    scss_options = { syntax: :scss }
+    if ENV['RACK_ENV'] == 'production'
+      scss_options.merge!({ style: :compressed })
     end
 
     scss :"#{params[:sheet]}", scss_options
