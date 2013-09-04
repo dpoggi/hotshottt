@@ -1,7 +1,7 @@
 listen '/tmp/.hotshottt.sock'
 preload_app true
 worker_processes 2
-app_dir = "#{ENV['HOME']}/projects/hotshottt"
+app_dir = File.expand_path("#{File.dirname(__FILE__)}/..")
 
 before_fork do |server, worker|
   old_pid = "#{app_dir}/tmp/pids/unicorn.pid.oldbin"
