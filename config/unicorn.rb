@@ -1,4 +1,4 @@
-listen '/tmp/.hotshottt.sock'
+listen '127.0.0.1:9000'
 preload_app true
 worker_processes 2
 app_dir = File.expand_path("#{File.dirname(__FILE__)}/..")
